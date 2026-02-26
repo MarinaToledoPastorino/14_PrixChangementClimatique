@@ -33,6 +33,11 @@ _Se placer dans le dossier du projet dbt pour le faire tourner :_
 cd data/dbt_pipeline
 ```
 
+_Download dependencies :_
+```bash
+uv run dbt deps
+```
+
 _Lancer le seed :_
 ```bash
 uv run dbt seed
@@ -94,7 +99,14 @@ Uploader le fichier dans le bucket `qppcc-upload`, dans le dossier /pipeline_inp
 
 ou 
 
-2/ utiliser le script python `data/utils/csv_uploader.py` qui upload tous les nouveaux fichiers CSV présents dans le dossier `data/dbt_pipeline/pipeline_inputs` vers le s3, dans le dossier /pipeline_inputs du bucket. Il se base sur la taille des fichiers pour ne remplacer que les fichiers différents.
+2/ utiliser le script python `data/utils/csv_uploader.py` qui upload le fichier donné en argument dans le dossier `data/dbt_pipeline/pipeline_inputs` vers le s3, dans le dossier /pipeline_inputs du bucket.
+Attention : il remplace le fichier sur le s3 même s'il existe déjà.
+
+```bash
+uv run python data/utils/csv_uploader.py mon_fichier.csv
+```
+
+
 Vous aurez besoin de créer les clés d'accès au s3 et de les ajouter dans un fichier .env à la racine du projet, avec les variables d'environnement suivantes :
 ```
 S3_ACCESS_KEY_ID = la clé projet récupérée

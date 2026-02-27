@@ -185,3 +185,5 @@ data/dbt_pipeline/package-lock.yml
 
 # VSCode settings
 .vscode
+
+# local data for development (dev.duckdb at repo root is already ignored above)

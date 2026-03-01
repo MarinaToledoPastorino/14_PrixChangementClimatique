@@ -17,13 +17,14 @@ from pathlib import Path
 import pandas as pd
 
 current_dir = Path.cwd()
-dbt_pipeline_dir = current_dir / "data" / "dbt_pipeline"
-analysis_dir = dbt_pipeline_dir / "analyses"
-seeds_dir = dbt_pipeline_dir / "seeds"
+dbt_pipeline_dir = current_dir / "data" / "utils"
+analysis_dir = dbt_pipeline_dir / "downloaded_files"
+# seeds_dir = dbt_pipeline_dir / "seeds"
 
 # Taux de chomage par departement
 taux_chomage_departement = pd.read_excel(
-    analysis_dir / "downloaded_files" / "sl_etc_2025T3.xls",
+    # analysis_dir / "downloaded_files" / "sl_etc_2025T3.xls",
+    analysis_dir / "sl_etc_2025T3.xls",
     sheet_name="Département",
     skiprows=3,
     skipfooter=4,
@@ -48,7 +49,8 @@ else:
 """
 
 communes_france_travail = pd.read_parquet(
-    analysis_dir / "downloaded_files" / "dares_defm_communales-brutes.parquet"
+    # analysis_dir / "downloaded_files" / "dares_defm_communales-brutes.parquet"
+    analysis_dir / "dares_defm_communales-brutes.parquet"
 )
 communes_france_travail = communes_france_travail[
     (communes_france_travail["date"] == "2024-T4")
@@ -58,7 +60,8 @@ communes_france_travail = communes_france_travail[
 
 # Données population par commune (2023) (Tout la population pas simplement pop active)
 pop_communes = pd.read_excel(
-    analysis_dir / "downloaded_files" / "POPULATION_MUNICIPALE_COMMUNES_FRANCE.xlsx"
+    # analysis_dir / "downloaded_files" / "POPULATION_MUNICIPALE_COMMUNES_FRANCE.xlsx"
+    analysis_dir / "POPULATION_MUNICIPALE_COMMUNES_FRANCE.xlsx"
 )
 pop_communes = pop_communes[["dep", "cv", "codgeo", "p23_pop"]]
 
@@ -117,4 +120,5 @@ taux_chomage_communes = taux_chomage_communes[reordered_cols]
 taux_chomage_communes["T3_2025_proxy_commune"] = taux_chomage_communes[
     "T3_2025_proxy_commune"
 ].round(2)
-taux_chomage_communes.to_csv(seeds_dir / "taux_chomage_communes.csv", index=False)
+# taux_chomage_communes.to_csv(seeds_dir / "taux_chomage_communes.csv", index=False)
+taux_chomage_communes.to_csv("taux_chomage_communes.csv", index=False)

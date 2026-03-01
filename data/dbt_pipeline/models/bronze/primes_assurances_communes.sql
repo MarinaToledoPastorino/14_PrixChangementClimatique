@@ -8,4 +8,4 @@ SELECT
     SD AS solde_debiteur,
     SC AS solde_crediteur,
     (CAST(NDEPT AS TEXT) || CAST(INSEE AS TEXT)) AS code_geo
-FROM 'pipeline_inputs/primes_assurances_communes.csv'
+FROM 'C:\Users\marin\OneDrive\Documentos\GitHub\14_PrixChangementClimatique\data\dbt_pipeline\pipeline_inputs\primes_assurances_communes.csv'
